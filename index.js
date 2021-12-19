@@ -92,8 +92,15 @@ async function run() {
       }
       res.json({ admin: isAdmin });
     });
-    // const doc = {};
-    // const result = await servicesCollection.insertOne(doc);
+    // delete booking
+    app.delete("/booking/:id", async (req, res) => {
+      const id = req.params.id;
+      console.log("delete user with id", id);
+      const query = { _id: ObjectId(id) };
+      const result = await bookingCollection.deleteOne(query);
+      console.log("deleting user with id", result);
+      res.json(result);
+    });
   } finally {
     // await client.close();
   }
